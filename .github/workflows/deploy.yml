@@ -10,7 +10,7 @@ jobs:
   deploy:
     name: Build & Deploy
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'w0rng'
+    if: github.repository_owner == 'gennadykataev'
     permissions:
       packages: write
       contents: read
@@ -30,7 +30,7 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ github.token }}
 
     - name: Set environment variables
       run: echo RELEASE=$(cat ./src/package.json | jq -r .release | jq -r .version) >> $GITHUB_ENV
@@ -39,5 +39,5 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         push: true
-        platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
-        tags: ghcr.io/w0rng/amnezia-wg-easy:latest, ghcr.io/w0rng/amnezia-wg-easy:${{ env.RELEASE }}
+        platforms: linux/amd64
+        tags: ghcr.io/gennadykataev/awg-easy:latest
