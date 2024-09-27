@@ -1,14 +1,15 @@
 volumes:
-  etc_wireguard:
+  awg-easy:
 
 services:
-  amnezia-wg-easy:
+  awg-easy:
     env_file:
       - .env
-    image: ghcr.io/w0rng/amnezia-wg-easy
-    container_name: amnezia-wg-easy
+    image: ghcr.io/gennadykataev/awg-easy
+    container_name: awg-easy
     volumes:
-      - etc_wireguard:/etc/wireguard
+      - awg-easy:/etc/wireguard
+      - awg-easy:/etc/amnezia/amneziawg
     ports:
       - "${WG_PORT}:${WG_PORT}/udp"
       - "${PORT}:${PORT}/tcp"
